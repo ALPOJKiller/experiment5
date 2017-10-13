@@ -1,0 +1,51 @@
+#include<stdio.h>
+int main()
+{
+    int a[100][100]={0};//先把每个元素都置零
+    int rm,lm,x,n,i,j;
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
+        for(j=0;j<n;j++)
+            scanf("%d",&a[i][j]);//输入数组
+    x=n;//把n的值赋值给x
+    while(x>0)
+    {
+        printf("%d\n",a[1][1]);
+        for(i=0;i<x;i++)//行归零
+        {
+            rm=a[i][0];//把每行的第一个元素复制给rm
+            for(j=0;j<x;j++)
+            {
+                if(a[i][j]<rm)
+                    rm=a[i][j];//如把那个值赋值给rm果有比rm更小的值就把那个值赋值给rm
+            }
+            if(rm!=0)
+            {
+                for(j=0;j<x;j++)
+                    a[i][j]-=rm;//如果最小值不为0就减去这个最小值
+            }
+        }
+        for(j=0;j<x;j++)//列归零
+        {
+            lm=a[0][j];
+            for(i=0;i<x;i++)
+            {
+                if(a[i][j]<lm)
+                    lm=a[i][j];
+            }
+            if(lm!=0)
+            {
+                for(i=0;i<x;i++)
+                    a[i][j]-=lm;
+            }
+        }
+        for(i=0;i<x;i++)//行消减
+            for(j=2;j<x;j++)
+                a[i][j-1]=a[i][j];
+        for(j=0;j<x;j++)//列消减
+            for(i=2;i<x;i++)
+                a[i-1][j]=a[i][j];
+        x--;
+    }
+    return 0;
+}
